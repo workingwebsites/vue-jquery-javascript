@@ -1,0 +1,68 @@
+<html lang="en">
+
+<head>
+    <!-- Load JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+
+    <!-- Load Vue --
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Load script file.  'defer' loads after body is generated -->
+    <script src="vue_demo.js" defer></script>
+
+    <script type="text/javascript">
+        function doFoodGroup() {
+            //Returns what is selected
+
+            var selected = $("input:radio[name ='food_group']:checked").val();
+            showSelection(selected);
+
+            //Send selection to Vue
+            vue_choices.showChoices(selected);
+        }
+
+        function showSelection(getSelection) {
+            alert("You selected: " + getSelection);
+        }
+    </script>
+
+    <style>
+        .demoDiv {
+            display: inline-block;
+            width: 49%;
+            vertical-align: top;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JQuery and Vue</h1>
+    <div class="demoDiv">
+        <h2>Select a Food Group:</h2>
+        <input type="radio" name="food_group" value="fruit" onclick="doFoodGroup()" /> Fruit
+        <br />
+        <input type="radio" name="food_group" value="veggies" onclick="doFoodGroup()" /> Veggie
+    </div>
+    <!-- Div where Vue runs -->
+    <div id="app" class="demoDiv">
+        <div v-show="show_fruits">
+            <h3>Fruit choices:</h3>
+            <ul id="fruit_list" style="list-style-type: none">
+                <li v-for="fruit in fruits">
+                    <input type="radio" name="food_selected" v-bind:value="fruit" v-on:click="getSelection(fruit)" />{{ fruit }}
+                </li>
+            </ul>
+        </div>
+
+        <div v-show="show_veggies">
+            <h3>Veggie choices:</h3>
+            <ul id="fruit_list" style="list-style-type: none">
+                <li v-for="veggie in veggies">
+                    <input type="radio" name="food_selected" v-bind:value="veggie" v-on:click="getSelection(veggie)" />{{ veggie }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
